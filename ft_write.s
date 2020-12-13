@@ -8,8 +8,9 @@ _ft_write:                                  ; rdi = file descriptor, rsi = strin
             jc          error               ; error sets carry flag, rax = errno
             ret
 error:
-            mov         r15, rax            ; save errno
+            push rax            ; save errno
             call        ___error            ; retrieve address to errno
+            pop r15
             mov         [rax], r15          ; put errno in return value of __error (pointer to errno)
             mov         rax, -1
             ret
